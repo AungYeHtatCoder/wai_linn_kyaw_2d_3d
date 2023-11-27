@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Admin\Banner;
 use Illuminate\Http\Request;
@@ -53,7 +54,6 @@ class WelcomeController extends Controller
     //     return view('welcome', compact('twoDigits', 'data', 'latestResultToday'));
     // }
 
-
     public function index()
     {
         $banners = Banner::latest()->take(3)->get();
@@ -72,6 +72,48 @@ class WelcomeController extends Controller
         }
 
         return view('welcome', compact('data', 'banners'));
+    }
+    public function home(){
+        return view('welcome');
+    }
+
+    public function userLogin()
+    {
+        if(Auth::check()){
+            return redirect()->back()->with('error', "Already Logged In.");
+        }else{
+            return view('frontend.auth.login');
+        }
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'phone' => ['required', 'max:15'],
+            'password' => ['required', 'string', 'min:6'],
+        ]);
+
+        $phone = $request->phone;
+        $phoneCheck = User::where('phone', $phone)->first();
+        if (!$phoneCheck) {
+            return redirect()->back()->with('error','Your number is not registered yet.');
+        }
+
+        $credentials = $request->only('phone', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed
+            return redirect('/home')->with('success', 'Login Success!');
+        }
+    }
+
+    public function userRegister()
+    {
+        if(Auth::check()){
+            return redirect()->back()->with('error', "Already Logged In.");
+        }else{
+            return view('frontend.auth.register');
+        }
     }
 
     public function wallet()
@@ -381,16 +423,6 @@ class WelcomeController extends Controller
     public function userFillMoney()
     {
         return view('user_fillmoney');
-    }
-
-    public function userLogin()
-    {
-        return view('frontend.user-login');
-    }
-
-    public function userRegister()
-    {
-        return view('frontend.user-register');
     }
 
     public function winnerList()

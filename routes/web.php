@@ -27,10 +27,20 @@ use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 // });
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/user-profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
+//home routes
+Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'home'])->name('welcome');
 
-Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
+//auth routes
+Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin'])->name('login');
+Route::post('/login', [App\Http\Controllers\User\WelcomeController::class, 'login'])->name('login');
+Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister'])->name('register');
+//auth routes
+
+//after login routes
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
+
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['auth']], function () {
 
@@ -217,5 +227,5 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
     Write here Client Side Auth Routes
     **********
     */
-  
+
 });

@@ -46,6 +46,17 @@
 
                 <div class="mb-4">
                     <div class="input-group">
+                        <span class="input-group-text bg-white border border-0"><i class="fas fa-envelope text-purple"></i></span>
+                        <input type="email" name="email" class="form-control border border-0" placeholder="အီးမေးလ်">
+                        {{-- <span class="input-group-text bg-white border border-0">.00</span> --}}
+                    </div>
+                    @error('email')
+                    <span class="text-danger d-block ps-3 pt-2">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mb-4">
+                    <div class="input-group">
                         <span class="input-group-text bg-white border border-0"><i class="fas fa-phone-volume text-purple"></i></span>
                         <input type="number" name="phone" class="form-control border border-0" placeholder="ဖုန်းနံပါတ်">
                         {{-- <span class="input-group-text bg-white border border-0">.00</span> --}}

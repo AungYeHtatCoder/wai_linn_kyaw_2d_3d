@@ -11,6 +11,7 @@ use App\Models\Admin\TwoDigit;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Exception\RequestException;
 
@@ -89,23 +90,51 @@ class WelcomeController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'phone' => ['required', 'max:15'],
+            'login' => 'required', // Input field named 'login' can hold either email or phone
             'password' => ['required', 'string', 'min:6'],
         ]);
 
-        $phone = $request->phone;
-        $phoneCheck = User::where('phone', $phone)->first();
-        if (!$phoneCheck) {
-            return redirect()->back()->with('error','Your number is not registered yet.');
-        }
+        $loginField = filter_var($request->input('login'), FILTER_VALIDATE_EMAIL) ? 'email' : 'phone';
 
-        $credentials = $request->only('phone', 'password');
+        $credentials = [
+            $loginField => $request->input('login'),
+            'password' => $request->input('password'),
+        ];
 
         if (Auth::attempt($credentials)) {
             // Authentication passed
             return redirect('/home')->with('success', 'Login Success!');
+        } else {
+            return redirect()->back()->with('error', 'Invalid credentials. Please try again.');
         }
     }
+
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['nullable', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['nullable', 'string', 'max:15', 'unique:users'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        // Create user based on provided credentials
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+        ]);
+
+        if ($user) {
+            Auth::login($user);
+            return redirect('/home')->with('success', 'Logged In Successful.');
+        } else {
+            return redirect()->back()->with('error', 'Registration failed. Please try again.');
+        }
+    }
+
 
     public function userRegister()
     {

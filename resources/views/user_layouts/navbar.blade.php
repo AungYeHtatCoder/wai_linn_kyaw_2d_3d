@@ -5,7 +5,7 @@
                         <div class="col-lg-6 col-md-6 offset-lg-3 offset-md-3 col-12 py-3 nav-border-purple" id="top-nav">
                             <div class="d-flex justify-content-between px-3">
                                 <!-- before login -->
-                                <a href="../index.html" class="text-decoration-none">
+                                <a href="{{ url('/') }}" class="text-decoration-none">
                                     <h5 class="text-white mt-2">Delight 2D | 3D</h5>
                                 </a>
                                 @guest
@@ -32,14 +32,6 @@
                 @auth
                 <div class="sidebar" id="sidebar" style="padding-top: 70px;">
                     <div class="container-fluid py-3 rounded-4 shadow">
-                        <!-- before login view -->
-                        <!-- <div class="d-flex justify-content-between">
-                            <i class="fa-regular fa-user-circle d-block text-purple"></i>
-                            <a href="" class="login-btn">
-                                အကောင့်ဝင်ပါ
-                            </a>
-                        </div> -->
-                        <!-- before login view -->
                         <!-- after login view -->
                         <div class="d-flex justify-content-between">
                             @if (Auth::user()->profile)

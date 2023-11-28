@@ -33,6 +33,7 @@ Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'home'])->n
 //auth routes
 Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin'])->name('login');
 Route::post('/login', [App\Http\Controllers\User\WelcomeController::class, 'login'])->name('login');
+Route::post('/register', [App\Http\Controllers\User\WelcomeController::class, 'register'])->name('register');
 Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister'])->name('register');
 //auth routes
 

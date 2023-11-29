@@ -82,42 +82,46 @@ class ProfileController extends Controller
 
     public function update(UserRequest $request, User $profile)
     {
-    $data = $request->validated();
+        $data = $request->validated();
 
-    // Check if a new profile image has been uploaded
-    $newImage = $request->file('profile');
-    
-    if ($newImage) {
-       // $main_folder = 'profile_images/';
-        $main_folder = 'profile_image/' . Str::random();
-        $filename = $newImage->getClientOriginalName();
-
-        // Store the new image with specified visibility settings
-        $path = Storage::putFileAs('public/'.
-            $main_folder, 
-            $newImage, 
-            $filename,
-            [
-                'visibility' => 'public',
-                'directory_visibility' => 'public'
-            ]
-        );
-
-        $data['profile'] = URL::to(Storage::url($path));
-        $data['profile_mime'] = $newImage->getClientMimeType();
-        $data['profile_size'] = $newImage->getSize();
-        
-        // If there is an old image, delete it
-        if ($profile->profile) {
-            $oldImagePath = str_replace(URL::to('/'), '', $profile->profile);
-            Storage::delete($oldImagePath);
+        if(!$request->file('profile')){
+            return redirect()->back()->with('error','Please Choose Profile Image First!');
         }
+
+        // Check if a new profile image has been uploaded
+        $newImage = $request->file('profile');
+
+        if ($newImage) {
+        // $main_folder = 'profile_images/';
+            $main_folder = 'profile_image/' . Str::random();
+            $filename = $newImage->getClientOriginalName();
+
+            // Store the new image with specified visibility settings
+            $path = Storage::putFileAs('public/'.
+                $main_folder,
+                $newImage,
+                $filename,
+                [
+                    'visibility' => 'public',
+                    'directory_visibility' => 'public'
+                ]
+            );
+
+            $data['profile'] = URL::to(Storage::url($path));
+            $data['profile_mime'] = $newImage->getClientMimeType();
+            $data['profile_size'] = $newImage->getSize();
+
+            // If there is an old image, delete it
+            if ($profile->profile) {
+                $oldImagePath = str_replace(URL::to('/'), '', $profile->profile);
+                Storage::delete($oldImagePath);
+            }
+        }
+
+        $profile->update($data);
+
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
-
-    $profile->update($data);
-
-    return redirect()->back()->with('toast_success', 'Profile updated successfully');
-}
 // new password change function
     public function newPassword(Request $request)
     {
@@ -144,8 +148,7 @@ class ProfileController extends Controller
         //dd($request->all());
         $request->validate([
             'old_password' => 'required',
-            'password' => 'required|confirmed|min:8',
-
+            'password' => 'required|min:6',
         ]);
 
         $user = User::find(Auth::user()->id);
@@ -154,15 +157,33 @@ class ProfileController extends Controller
             $user->update([
                 'password' => Hash::make($request->password)
             ]);
-
-            if (auth()->user()->hasRole('Admin')) {
-                return redirect()->back()->with('toast_success', "Admin Password has been  Updated.");
-            } else {
-                return redirect()->back()->with('toast_success', "Customer Password has been Updated.");
-            }
+            return redirect()->back()->with('success', "Password has been changed.");
+            // if (auth()->user()->hasRole('Admin')) {
+            //     return redirect()->back()->with('success', "Admin Password has been  Updated.");
+            // } else {
+            //     return redirect()->back()->with('success', "Customer Password has been Updated.");
+            // }
         } else {
             return redirect()->back()->with('error', "Old password does not match!");
         }
+    }
+
+    public function editInfo(Request $request)
+    {
+        $request->validate([
+            "name"=> "required",
+            "email"=> "nullable|email",
+            "phone"=> "nullable",
+            "address" => "nullable"
+        ]);
+        $user = User::find(Auth::user()->id);
+        $user->update([
+            "name"=> $request->name,
+            "email"=> $request->email ?? "",
+            "phone"=> $request->phone ?? "",
+            "address" => $request->address ?? ""
+        ]);
+        return redirect()->back()->with("success","User Info Updated.");
     }
 
     // phone address update function

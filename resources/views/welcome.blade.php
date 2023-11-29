@@ -9,23 +9,19 @@
     <!-- carousel -->
     <div id="carouselExampleControls" class="carousel slide border-purple" data-bs-ride="carousel">
         <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="https://play-lh.googleusercontent.com/ecY_irAyhCjk2ZUH6MivXtrnN4C7aRfV3YEhFIK1fidQfN5VJ9lfleF0R-4KlVoJa08=w540-h302-rw" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="https://image.winudf.com/v2/image1/Y29tLmpveW91cnMuc2hhbmttX3NjcmVlbl83XzE2MzAzOTI0NTVfMDQy/screen-7.webp?fakeurl=1&type=.webp" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="https://play-lh.googleusercontent.com/hOWaoJQbCx1k01JF5EmryGY1R9kHxJCNFF3XPQR_usXYTtfCwe-Fee-7c01NSKrXyx8=w2560-h1440-rw" class="d-block w-100" alt="...">
-          </div>
+            @foreach ($banners as $key => $banner)
+                <div class="carousel-item{{ $key === 0 ? ' active' : '' }}">
+                    <img src="{{ asset('assets/img/banners/'.$banner->image) }}" class="d-block w-100" alt="Banner {{ $key }}">
+                </div>
+            @endforeach
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
         </button>
     </div>
     <marquee behavior="" direction="">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quaerat, aperiam! Facere itaque, blanditiis fugit eius quas non perspiciatis velit exercitationem?</marquee>

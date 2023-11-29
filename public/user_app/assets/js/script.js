@@ -1,11 +1,11 @@
-var loader = document.getElementById('preloader');
-var navbar = document.getElementById('navbar');
-var footer = document.getElementById('footer');
-window.addEventListener("load", function(){
-    loader.style.display = "none";
-    navbar.classList.add("fixed-top");
-    footer.classList.add("fixed-bottom");
-})
+// var loader = document.getElementById('preloader');
+// var navbar = document.getElementById('navbar');
+// var footer = document.getElementById('footer');
+// window.addEventListener("load", function(){
+//     loader.style.display = "none";
+//     navbar.classList.add("fixed-top");
+//     footer.classList.add("fixed-bottom");
+// })
 
 
 $(document).ready(function(){
@@ -66,5 +66,5 @@ $(document).ready(function(){
         $("#ayapay").addClass('bankCheck')
         $("#bankName").text('(AYA Pay)')
     })
-    
+
 })

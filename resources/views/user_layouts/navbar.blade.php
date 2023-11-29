@@ -1,6 +1,6 @@
 
                 <!-- navbar section -->
-                <div id="navbar">
+                <div id="navbar" class="fixed-top">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 offset-lg-3 offset-md-3 col-12 py-3 nav-border-purple" id="top-nav">
                             <div class="d-flex justify-content-between px-3">

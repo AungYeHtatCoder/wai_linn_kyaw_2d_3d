@@ -28,7 +28,7 @@ use App\Http\Controllers\Admin\TwoDWinnerHistoryController;
 Auth::routes();
 
 //home routes
-Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'home'])->name('welcome');
+Route::get('/', [App\Http\Controllers\User\WelcomeController::class, 'index'])->name('welcome');
 
 //auth routes
 Route::get('/login', [App\Http\Controllers\User\WelcomeController::class, 'userLogin'])->name('login');
@@ -36,10 +36,31 @@ Route::post('/login', [App\Http\Controllers\User\WelcomeController::class, 'logi
 Route::post('/register', [App\Http\Controllers\User\WelcomeController::class, 'register'])->name('register');
 Route::get('/register', [App\Http\Controllers\User\WelcomeController::class, 'userRegister'])->name('register');
 //auth routes
-
 //after login routes
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile', [App\Http\Controllers\HomeController::class, 'profile'])->name('home');
+//after login routes
+
+Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\User', 'middleware' => ['auth']], function () {
+    //profile management
+    Route::put('editProfile/{profile}', [ProfileController::class, 'update'])->name('editProfile');
+    Route::post('editInfo', [ProfileController::class, 'editInfo'])->name('editInfo');
+    Route::post('changePassword', [ProfileController::class, 'changePassword'])->name('changePassword');
+    //profile management
+
+    //wallet page
+    Route::get('/wallet', [WelcomeController::class, 'wallet'])->name('wallet');
+    Route::get('/wallet/topup', [WelcomeController::class,'topUp'])->name('wallet.topup');
+    Route::get('/wallet/withdraw', [WelcomeController::class,'withDraw'])->name('wallet.withdraw');
+    //wallet page
+
+    //promotion page
+    Route::get('/promotion', [WelcomeController::class,'promo'])->name('promo');
+    //promotion page
+
+    //service page
+    Route::get('/contact', [WelcomeController::class,'servicePage'])->name('contact');
+});
 
 
 
@@ -216,17 +237,5 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'App\Http\Co
     // 3d lottery routes
     Route::get('/threed-lotteries-history', [ThreedHistoryController::class, 'index']);
     Route::get('/threed-lotteries-match-time', [ThreedMatchTimeController::class, 'index']);
-
-});
-
-
-
-Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Controllers\User', 'middleware' => ['auth']], function () {
-
-  /*
-    **********
-    Write here Client Side Auth Routes
-    **********
-    */
 
 });

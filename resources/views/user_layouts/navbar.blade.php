@@ -35,13 +35,13 @@
                         <!-- after login view -->
                         <div class="d-flex justify-content-between">
                             @if (Auth::user()->profile)
-                                <img src="{{ asset('user_app/assets/img/profile/'.Auth::user()->profile) }}" alt="">
+                                <img src="{{ Auth::user()->profile }}" alt="">
                             @else
-                                <img src="{{ asset('user_app/assets/img/profile.png') }}" alt="">
+                                <i class="fa-regular fa-user-circle text-purple fa-2x"></i>
                             @endif
 
                             <div>
-                                <a href="" class="login-btn">
+                                <a href="{{ url('/home') }}" class="login-btn">
                                     {{ Auth::user()->name }}
                                 </a>
                                 <small class="text-purple">

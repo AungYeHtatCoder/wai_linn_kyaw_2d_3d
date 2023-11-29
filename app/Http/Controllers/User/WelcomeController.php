@@ -58,26 +58,8 @@ class WelcomeController extends Controller
     public function index()
     {
         $banners = Banner::latest()->take(3)->get();
-        //$twoDigits = TwoDigit::all();
-        $client = new Client();
-
-        try {
-            $response = $client->request('GET', 'https://api.thaistock2d.com/live');
-            $data = json_decode($response->getBody(), true);
-        } catch (RequestException $e) {
-            // Log the error or inform the user
-            $data = []; // or provide a default value
-        }
-        if (request()->ajax()) {
-            return response()->json($data);
-        }
-
-        return view('welcome', compact('data', 'banners'));
+        return view('welcome', compact('banners'));
     }
-    public function home(){
-        return view('welcome');
-    }
-
     public function userLogin()
     {
         if(Auth::check()){
@@ -86,7 +68,6 @@ class WelcomeController extends Controller
             return view('frontend.auth.login');
         }
     }
-
     public function login(Request $request)
     {
         $request->validate([
@@ -108,8 +89,6 @@ class WelcomeController extends Controller
             return redirect()->back()->with('error', 'Invalid credentials. Please try again.');
         }
     }
-
-
     public function register(Request $request)
     {
         $request->validate([
@@ -134,8 +113,6 @@ class WelcomeController extends Controller
             return redirect()->back()->with('error', 'Registration failed. Please try again.');
         }
     }
-
-
     public function userRegister()
     {
         if(Auth::check()){
@@ -147,12 +124,12 @@ class WelcomeController extends Controller
 
     public function wallet()
     {
-        return view('frontend.wallet');
+        return view('frontend.pages.wallet');
     }
 
     public function topUp()
     {
-        return view('frontend.topUp');
+        return view('frontend.pages.topup');
     }
 
     public function topUpSubmit()
@@ -163,22 +140,22 @@ class WelcomeController extends Controller
 
     public function withDraw()
     {
-        return view('frontend.withDraw');
+        return view('frontend.pages.withDraw');
     }
 
     public function promo()
     {
-        return view('frontend.promotion');
+        return view('frontend.pages.promotion');
     }
 
     public function promoDetail()
     {
-        return view('frontend.promoDetail');
+        return view('frontend.pages.promoDetail');
     }
 
     public function servicePage()
     {
-        return view('frontend.service');
+        return view('frontend.pages.contact');
     }
 
     public function dashboard()

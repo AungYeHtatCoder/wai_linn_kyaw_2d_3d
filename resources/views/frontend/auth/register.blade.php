@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 offset-lg-2 offset-md-1">
             <a href="{{ url('/') }}" class="text-center text-decoration-none text-white">
-                <h3 class="mb-4">DELIGHT 2D | 3D</h3>
+                <h3 class="mb-4">Aladdin 2D | 3D</h3>
             </a>
             <h5 class="text-center mb-4">Sign Up</h5>
             <form action="{{ route('register') }}" method="post">

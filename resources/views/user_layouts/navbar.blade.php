@@ -65,7 +65,7 @@
                                 <p class="py-0">ထွက်ဂဏန်းများ</p>
                             </div>
                         </a>
-                        <a href="./pages/2d_history.html" class="link shadow">
+                        {{-- <a href="./pages/2d_history.html" class="link shadow">
                             <div class="d-flex">
                                 <i class="fas fa-list d-block me-2"></i>
                                 <p class="py-0">မနက်ပိုင်းထီထိုးမှတ်တမ်း</p>
@@ -76,7 +76,7 @@
                                 <i class="fas fa-list d-block me-2"></i>
                                 <p class="py-0">ညနေပိုင်းထီထိုးမှတ်တမ်း</p>
                             </div>
-                        </a>
+                        </a> --}}
                         <a href="./pages/2d_result.html" class="link shadow">
                             <div class="d-flex">
                                 <i class="fas fa-list d-block me-2"></i>
@@ -101,24 +101,24 @@
                                 <p class="py-0">ဘဏ်အကောင့်များ</p>
                             </div>
                         </a>
-                        <a href="./pages/change_password.html" class="link shadow">
+                        {{-- <a href="./pages/change_password.html" class="link shadow">
                             <div class="d-flex">
                                 <i class="fas fa-key d-block me-2"></i>
                                 <p class="py-0">လျို့ဝှက်နံပါတ်ပြောင်းရန်</p>
                             </div>
-                        </a>
+                        </a> --}}
                         <a href="./pages/promo_code.html" class="link shadow">
                             <div class="d-flex">
                                 <i class="fas fa-users d-block me-2"></i>
                                 <p class="py-0">မိတ်ဆက်ကုဒ်</p>
                             </div>
                         </a>
-                        <a href="./pages/feedback.html" class="link shadow">
+                        {{-- <a href="./pages/feedback.html" class="link shadow">
                             <div class="d-flex">
                                 <i class="fas fa-comment-dots d-block me-2"></i>
                                 <p class="py-0">အကြံပြုရန်</p>
                             </div>
-                        </a>
+                        </a> --}}
                         <a href="" class="link shadow">
                             <div class="d-flex">
                                 <i class="fas fa-code-compare d-block me-2"></i>

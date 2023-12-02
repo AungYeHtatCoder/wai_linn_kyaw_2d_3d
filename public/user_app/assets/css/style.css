@@ -210,7 +210,8 @@
 }
 
 .footer-link:hover {
-    background-color: #fff;
+    /* background-color: #fff; */
+    border: 1px solid #fff;
     color: #8b00dc;
     box-shadow: 2px 3px 4px #000;
     transform: scale(1.2);

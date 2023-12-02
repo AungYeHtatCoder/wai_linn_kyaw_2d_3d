@@ -6,6 +6,14 @@ use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\User\WalletController;
 use App\Http\Controllers\User\WelcomeController;
+use App\Http\Controllers\User\AM9\TwoDplay9AMController;
+use App\Http\Controllers\User\PM12\TwoDplay12PMController;
+use App\Http\Controllers\User\PM2\TwoDplay2PMController;
+use App\Http\Controllers\User\PM4\TwoDplay4PMController;
+use App\Http\Controllers\User\TwodQuick\TwoDQuickPlay9AMController;
+use App\Http\Controllers\User\TwodQuick\TwoDQuickPlay12PMController;
+use App\Http\Controllers\User\TwodQuick\TwoDQuickPlay2PMController;
+use App\Http\Controllers\User\TwodQuick\TwoDQuickPlay4PMController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\User\WithDrawController;
 use App\Http\Controllers\Admin\PlayTwoDController;
@@ -60,6 +68,43 @@ Route::group(['prefix' => 'user', 'as' => 'user.', 'namespace' => 'App\Http\Cont
 
     //service page
     Route::get('/contact', [WelcomeController::class,'servicePage'])->name('contact');
+    //service page
+
+    //2d pages
+    Route::get('/2d', [WelcomeController::class,'twoD'])->name('twoD');
+    //9AM
+    Route::get('2d/0930play', [TwoDplay9AMController::class,'index'])->name('twoDPlayAM');
+    Route::post('2d/0930play', [TwoDplay9AMController::class,'store'])->name('twoDPlayAM');
+    Route::get('2d/0930playConfirm', [TwoDplay9AMController::class,'play_confirm'])->name('twoDPlayAMConfirm');
+    Route::get('2d/0930quickPlay', [TwoDQuickPlay9AMController::class,'index'])->name('twoDQuickPlayAM');
+    Route::post('2d/0930quickPlay', [TwoDQuickPlay9AMController::class,'store'])->name('twoDQuickPlayAM');
+    Route::get('2d/0930quickPlayConfirm', [TwoDQuickPlay9AMController::class,'play_confirm'])->name('twoDQuickPlayAMConfirm');
+    //9AM
+    //12PM
+    Route::get('2d/1200play', [TwoDplay12PMController::class,'index'])->name('twoDPlay12PM');
+    Route::post('2d/1200play', [TwoDplay12PMController::class,'store'])->name('twoDPlay12PM');
+    Route::get('2d/1200playConfirm', [TwoDplay12PMController::class,'play_confirm'])->name('twoDPlay12PMConfirm');
+    Route::get('2d/1200quickPlay', [TwoDQuickPlay12PMController::class,'index'])->name('twoDQuickPlay12PM');
+    Route::post('2d/1200quickPlay', [TwoDQuickPlay12PMController::class,'store'])->name('twoDQuickPlay12PM');
+    Route::get('2d/1200quickPlayConfirm', [TwoDQuickPlay12PMController::class,'play_confirm'])->name('twoDQuickPlay12PMConfirm');
+    //12PM
+    //2PM
+    Route::get('2d/0200play', [TwoDplay2PMController::class,'index'])->name('twoDPlay2PM');
+    Route::post('2d/0200play', [TwoDplay2PMController::class,'store'])->name('twoDPlay2PM');
+    Route::get('2d/0200playConfirm', [TwoDplay2PMController::class,'play_confirm'])->name('twoDPlay2PMConfirm');
+    Route::get('2d/0200quickPlay', [TwoDQuickPlay2PMController::class,'index'])->name('twoDQuickPlay2PM');
+    Route::post('2d/0200quickPlay', [TwoDQuickPlay2PMController::class,'store'])->name('twoDQuickPlay2PM');
+    Route::get('2d/0200quickPlayConfirm', [TwoDQuickPlay2PMController::class,'play_confirm'])->name('twoDQuickPlay2PMConfirm');
+    //2PM
+    //4PM
+    Route::get('2d/0430play', [TwoDplay4PMController::class,'index'])->name('twoDPlay4PM');
+    Route::post('2d/0430play', [TwoDplay4PMController::class,'store'])->name('twoDPlay4PM');
+    Route::get('2d/0430playConfirm', [TwoDplay4PMController::class,'play_confirm'])->name('twoDPlay4PMConfirm');
+    Route::get('2d/0430quickPlay', [TwoDQuickPlay4PMController::class,'index'])->name('twoDQuickPlay4PM');
+    Route::post('2d/0430quickPlay', [TwoDQuickPlay4PMController::class,'store'])->name('twoDQuickPlay4PM');
+    Route::get('2d/0430quickPlayConfirm', [TwoDQuickPlay4PMController::class,'play_confirm'])->name('twoDQuickPlay4PMConfirm');
+    //4PM
+    //2d pages
 });
 
 

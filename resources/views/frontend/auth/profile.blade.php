@@ -227,6 +227,21 @@
 
     <div class="nine-thirty py-5 d-none">
         <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
+        <div class="card mt-2 bg-transparent shadow border border-1">
+            <div class="card-header">
+                <p class="text-center text-white">
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleDateString());
+                    </script>
+                    <br />
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleTimeString());
+                    </script>
+                </p>
+            </div>
+        </div>
         <table class="table text-center">
             <thead>
                 <tr>
@@ -236,27 +251,41 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
+                @if ($earlymorningDigits)
+                    @foreach ($earlymorningDigits['two_digits'] as $index => $digit)
+                    <tr>
+                        <td>1</td>
+                        <td>{{ $digit->two_digit }}</td>
+                        <td>{{ $digit->pivot->sub_amount }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
+            <p class="text-end pt-1" style="color: #ffffff">Total Amount for 09:30AM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+                <strong>{{ $earlymorningDigits['total_amount'] }} MMK</strong>
+            </p>
+        </div>
     </div>
 
     <div class="twelve py-5 d-none">
         <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
+        <div class="card mt-2 bg-transparent shadow border border-1">
+            <div class="card-header">
+                <p class="text-center text-white">
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleDateString());
+                    </script>
+                    <br />
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleTimeString());
+                    </script>
+                </p>
+            </div>
+        </div>
         <table class="table text-center">
             <thead>
                 <tr>
@@ -266,27 +295,50 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
+                @if ($morningDigits)
+                    @foreach ($morningDigits['two_digits'] as $index => $digit)
+                    <tr>
+                        <td>1</td>
+                        <td>{{ $digit->two_digit }}</td>
+                        <td>{{ $digit->pivot->sub_amount }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
+            <p class="text-end pt-1" style="color: #ffffff">Total Amount for 12:00PM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+                <strong>{{ $morningDigits['total_amount'] }} MMK</strong>
+            </p>
+        </div>
     </div>
 
     <div class="two py-5 d-none">
         <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
+        @if(isset($earlyeveningDigit['two_digits']) && count($eveningDigits['two_digits']) == 0)
+            <p class="text-center text-white px-3 py-2 mt-3" style="background-color: #c50408">
+                ညနေပိုင်း ကံစမ်းထားသော ထီဂဏန်းများ မရှိသေးပါ
+                <span>
+                    <a href="{{ route('admin.GetTwoDigit')}}" style="color: #f5bd02; text-decoration:none">
+                        <strong>ထီးထိုးရန် နိုပ်ပါ</strong></a>
+                </span>
+            </p>
+        @endif
+        <div class="card mt-2 bg-transparent shadow border border-1">
+            <div class="card-header">
+                <p class="text-center text-white">
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleDateString());
+                    </script>
+                    <br />
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleTimeString());
+                    </script>
+                </p>
+            </div>
+        </div>
         <table class="table text-center">
             <thead>
                 <tr>
@@ -296,27 +348,41 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
+                @if ($earlyeveningDigit)
+                    @foreach ($earlyeveningDigit['two_digits'] as $index => $digit)
+                    <tr>
+                        <td>1</td>
+                        <td>{{ $digit->two_digit }}</td>
+                        <td>{{ $digit->pivot->sub_amount }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
+            <p class="text-end pt-1" style="color: #ffffff">Total Amount for 02:00PM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+                <strong>{{ $earlyeveningDigit['total_amount'] }} MMK</strong>
+            </p>
+        </div>
     </div>
 
     <div class="four-thirty py-5 d-none">
         <p class="text-center">တစ်နေ့တာ 2D ထိုးမှတ်တမ်း</p>
+        <div class="card mt-2 bg-transparent shadow border border-1">
+            <div class="card-header">
+                <p class="text-center text-white">
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleDateString());
+                    </script>
+                    <br />
+                    <script>
+                        var d = new Date();
+                        document.write(d.toLocaleTimeString());
+                    </script>
+                </p>
+            </div>
+        </div>
         <table class="table text-center">
             <thead>
                 <tr>
@@ -326,23 +392,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>11</td>
-                    <td>300</td>
-                </tr>
+                @if ($eveningDigits)
+                    @foreach ($eveningDigits['two_digits'] as $index => $digit)
+                    <tr>
+                        <td>1</td>
+                        <td>{{ $digit->two_digit }}</td>
+                        <td>{{ $digit->pivot->sub_amount }}</td>
+                    </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
+        <div class="mb-3 d-flex justify-content-around text-white p-2 rounded shadow border border-1">
+            <p class="text-end pt-1" style="color: #ffffff">Total Amount for 04:30AM: ||&nbsp; &nbsp; စုစုပေါင်းထိုးကြေး
+                <strong>{{ $eveningDigits['total_amount'] }} MMK</strong>
+            </p>
+        </div>
     </div>
 
 </div>

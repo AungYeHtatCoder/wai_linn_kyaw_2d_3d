@@ -171,19 +171,34 @@ class ProfileController extends Controller
     public function editInfo(Request $request)
     {
         $request->validate([
-            "name"=> "required",
-            "email"=> "nullable|email",
-            "phone"=> "nullable",
+            "name" => "required",
+            "email" => "nullable",
+            "phone" => "nullable",
             "address" => "nullable"
         ]);
-        $user = User::find(Auth::user()->id);
+
+        $user = User::find(Auth::id());
+
+        if ($request->email !== $user->email || $request->phone !== $user->phone) {
+            $existingEmail = User::where("email", $request->email)->first();
+            $existingPhone = User::where("phone", $request->phone)->first();
+
+            if ($existingEmail && $existingEmail->id !== $user->id) {
+                return redirect()->back()->with("error", "The email has already been taken.");
+            }
+            if ($existingPhone && $existingPhone->id !== $user->id) {
+                return redirect()->back()->with("error", "The phone has already been taken.");
+            }
+        }
+
         $user->update([
-            "name"=> $request->name,
-            "email"=> $request->email ?? "",
-            "phone"=> $request->phone ?? "",
-            "address" => $request->address ?? ""
+            "name" => $request->name,
+            "email" => $request->email ?? $user->email,
+            "phone" => $request->phone ?? $user->phone,
+            "address" => $request->address ?? $user->address
         ]);
-        return redirect()->back()->with("success","User Info Updated.");
+
+        return redirect()->back()->with("success", "User info updated successfully.");
     }
 
     // phone address update function

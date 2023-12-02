@@ -6,7 +6,7 @@
                             <div class="d-flex justify-content-between px-3">
                                 <!-- before login -->
                                 <a href="{{ url('/') }}" class="text-decoration-none">
-                                    <h5 class="text-white mt-2">Delight 2D | 3D</h5>
+                                    <h5 class="text-white mt-2">Aladdin 2D | 3D</h5>
                                 </a>
                                 @guest
                                 <div>

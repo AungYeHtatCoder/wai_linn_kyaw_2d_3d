@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use GuzzleHttp\Exception\RequestException;
+use App\Models\Admin\LotteryMatch;
 
 class WelcomeController extends Controller
 {
@@ -121,42 +122,55 @@ class WelcomeController extends Controller
             return view('frontend.auth.register');
         }
     }
-
     public function wallet()
     {
         return view('frontend.pages.wallet');
     }
-
     public function topUp()
     {
         return view('frontend.pages.topup');
     }
-
     public function topUpSubmit()
     {
         return view('frontend.topUpSubmit');
     }
-
-
     public function withDraw()
     {
         return view('frontend.pages.withDraw');
     }
-
     public function promo()
     {
         return view('frontend.pages.promotion');
     }
-
     public function promoDetail()
     {
         return view('frontend.pages.promoDetail');
     }
-
     public function servicePage()
     {
         return view('frontend.pages.contact');
     }
+    public function twoD()
+    {
+        return view('frontend.twoD.twoD');
+    }
+    public function twoDPlayAM(){
+        $twoDigits = TwoDigit::all();
+
+        // Calculate remaining amounts for each two-digit
+        $remainingAmounts = [];
+        foreach ($twoDigits as $digit) {
+            $totalBetAmountForTwoDigit = DB::table('lottery_two_digit_copy')
+                ->where('two_digit_id', $digit->id)
+                ->sum('sub_amount');
+
+            $remainingAmounts[$digit->id] = 50000 - $totalBetAmountForTwoDigit; // Assuming 5000 is the session limit
+        }
+        $lottery_matches = LotteryMatch::where('id', 1)->whereNotNull('is_active')->first();
+
+        return view('frontend.twoD.twoDPlayAM', compact('lottery_matches', 'twoDigits','remainingAmounts'));
+    }
+
 
     public function dashboard()
     {
@@ -191,10 +205,7 @@ class WelcomeController extends Controller
     }
 
 
-    public function twoD()
-    {
-        return view('frontend.twod');
-    }
+
 
     public function twoDPlay()
     {

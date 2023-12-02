@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delight 2D | 3D</title>
+    <title>Aladdin 2D | 3D</title>
     <link rel="icon" href="{{ asset('user_app/assets/img/logo.png') }}">
     <link rel="stylesheet" href="{{ asset('user_app/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('user_app/assets/css/style.css') }}">

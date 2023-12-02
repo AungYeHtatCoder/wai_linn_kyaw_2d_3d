@@ -11,17 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bet_lottery_matching_copy', function (Blueprint $table) {
+        Schema::create('lottery_over_limit', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('matching_id');
-            $table->unsignedBigInteger('bet_lottery_id');
-            $table->string('digit_entry', 3); 
+            $table->unsignedBigInteger('lottery_id');
+            $table->unsignedBigInteger('two_digit_id');
+            // sub amount
             $table->integer('sub_amount')->default(0);
+            //prize_sent 
             $table->boolean('prize_sent')->default(false);
+            $table->foreign('lottery_id')->references('id')->on('lotteries')->onDelete('cascade');
+            $table->foreign('two_digit_id')->references('id')->on('two_digits')->onDelete('cascade');
             $table->timestamps();
-            $table->foreign('matching_id')->references('id')->on('matchings')->onDelete('cascade');
-            $table->foreign('bet_lottery_id')->references('id')->on('bet_lotteries')->onDelete('cascade');
-            
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bet_lottery_matching_copy');
+        Schema::dropIfExists('lottery_over_limit');
     }
 };
